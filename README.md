@@ -4,13 +4,12 @@ HUIGCDDispatchAsync
 A simple wrapper around GCD dispatch_async() function to make easily cancellation.
 
 
-
-How to use:
-    0.  Just Drag and add HUIGCDDispatchAsync.h/m files into your project, and import "HUIGCDDispatchAsync.h"
-    1.  Dispatch an async block with 'dispatch_async_HUI' function.
-    2.  Obtain the returned 'HUIBlockFlag' object.
-    3.  Set the 'HUIBlockFlag' object's cancel property to YES if you want cancel the previous dispatched block.
-    4.  Within your actual block code, it's your responsibility to check and cancel the block.
+<p><strong>How to use:<strong></p>
+<ul><li>0.  Just Drag and Add HUIGCDDispatchAsync.h/m files into your project, and import "HUIGCDDispatchAsync.h"</li></ul>
+<ul><li>1.  Dispatch an async block with 'dispatch_async_HUI' function.</li></ul>
+<ul><li>2.  Obtain the returned 'HUIBlockFlag' object.</li></ul>
+<ul><li>3.  Set the 'HUIBlockFlag' object's cancel property to YES if you want cancel the previous dispatched block.</li></ul>
+<ul><li>4.  Within your actual block code, it's your responsibility to check and cancel the block.</li></ul>
     
     
     See the demo for example:
