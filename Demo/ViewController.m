@@ -21,22 +21,22 @@
     
     
     /*
-     *  1.  Dispatch an async block with 'dispatch_async_HUI' function
-     *  2.  Obtain the returned 'HUIBlockFlag' object if you need cancel the block later.
-     *      Otherwise, just leave it away.
+     *  Dispatch an async block with 'dispatch_async_HUI' function
+     *  Obtain the returned 'HUIBlockFlag' object if you need cancel the block later, Otherwise, just leave it away.
      */
     HUIBlockFlag *blockFlag = dispatch_async_HUI(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(HUIBlockFlag *flag){
         
         
         /*
-         *!!! Notice: while(YES) is just used to simulate an endless async operation.
+         *  while(YES) is just used to simulate an endless async operation.
          */
         while (YES)
         {
             
             
-            /*  3.  Within your actual block code, use the 'flag' parameter to check whether need cancel this block
-             *      If need cancel, you should clean up and cancel it.
+            /*
+             *  Within your actual block code, use the 'flag' parameter to check whether need cancel this block
+             *  If need cancel, you should clean up and cancel it.
              */
             if (flag.isCancelled)
             {
@@ -68,7 +68,7 @@
         }
         
         /* 
-         *  if you keep a high frequency of the cancel checking operation. A GOTO label is helpful.
+         *  If you keep a high frequency of the cancel checking operation. A GOTO label is helpful.
          */
     CancelBlock:
         //Do some clean up operations here
@@ -79,7 +79,7 @@
     
     
     
-    /*  4. When you want to cancel the async block. Just the returned 'HUIBlockFlag' object's cancel to YES 
+    /*  When you want to cancel the async block. Just set the returned 'HUIBlockFlag' object's cancel to YES 
      *  The following code simulates 'cancel the block after 20 seconds'
      */
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){

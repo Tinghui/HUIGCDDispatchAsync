@@ -48,6 +48,7 @@
 		E142FACB1666FADC00DA2866 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E142FACC1666FADC00DA2866 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E142FACF1666FADC00DA2866 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		E142FAF11667059F00DA2866 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +77,7 @@
 		E142FA991666F9E600DA2866 = {
 			isa = PBXGroup;
 			children = (
+				E142FAF11667059F00DA2866 /* README.md */,
 				E142FAA91666F9E600DA2866 /* HUIGCDDispatchAsync */,
 				E142FABF1666FADC00DA2866 /* Demo */,
 				E142FAA61666F9E600DA2866 /* Frameworks */,
@@ -389,6 +391,7 @@
 				E142FAB31666F9E600DA2866 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E142FAD11666FADC00DA2866 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
@@ -397,6 +400,7 @@
 				E142FAD31666FADC00DA2866 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
