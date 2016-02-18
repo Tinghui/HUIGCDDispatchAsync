@@ -20,73 +20,72 @@
     [super viewDidLoad];
     
     
+/*
+ *  Dispatch an async block with 'dispatch_async_HUI' function
+ *  Keep the returned 'HUIBlockFlag' object if you need cancel the block later, Otherwise, just leave it away.
+ */
+HUIBlockFlag *blockFlag = dispatch_async_HUI(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(HUIBlockFlag *flag){
+    
+    
     /*
-     *  Dispatch an async block with 'dispatch_async_HUI' function
-     *  Obtain the returned 'HUIBlockFlag' object if you need cancel the block later, Otherwise, just leave it away.
+     *  Use while(YES) to simulate an endless async operation.
      */
-    HUIBlockFlag *blockFlag = dispatch_async_HUI(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(HUIBlockFlag *flag){
+    while (YES)
+    {
         
         
         /*
-         *  while(YES) is just used to simulate an endless async operation.
+         *  Inside your actual block code, use the 'flag' parameter to check whether need to cancel current block operation.
+         *  If need cancel, you should clean up and return.
          */
-        while (YES)
+        if (flag.isCancelled)
         {
-            
-            
-            /*
-             *  Within your actual block code, use the 'flag' parameter to check whether need cancel this block
-             *  If need cancel, you should clean up and cancel it.
-             */
-            if (flag.isCancelled)
-            {
-                goto CancelBlock;
-            }
-            
-            
-            [NSThread sleepForTimeInterval:1.0];
-            NSLog(@"%@ Simulator: Job step costs 1 second ", [NSDate date]);
-            
-            
-            /*
-             *  You can increase frequency of the checking operation, to make this block stops ASAP.
-             */
-            if (flag.isCancelled)
-            {
-                goto CancelBlock;
-            }
-            [NSThread sleepForTimeInterval:3.0];
-            NSLog(@"%@ Simulator: Job step costs 3 second ", [NSDate date]);
-            
-            if (flag.isCancelled)
-            {
-                goto CancelBlock;
-            }
-            [NSThread sleepForTimeInterval:0.5];
-            NSLog(@"%@ Simulator: Job step costs 0.5 second ", [NSDate date]);
-            
+            goto CancelBlock;
         }
         
-        /* 
-         *  If you keep a high frequency of the cancel checking operation. A GOTO label is helpful.
-         */
-    CancelBlock:
-        //Do some clean up operations here
-        NSLog(@"Block is cancelled");
-        return;
         
-    });
+        [NSThread sleepForTimeInterval:1.0];
+        NSLog(@"%@ Simulator: Job step costs 1 second ", [NSDate date]);
+        
+        
+        /*
+         *  You can increase frequency of the checking operation, to make current block stops ASAP.
+         */
+        if (flag.isCancelled)
+        {
+            goto CancelBlock;
+        }
+        [NSThread sleepForTimeInterval:3.0];
+        NSLog(@"%@ Simulator: Job step costs 3 seconds ", [NSDate date]);
+        
+        if (flag.isCancelled)
+        {
+            goto CancelBlock;
+        }
+        [NSThread sleepForTimeInterval:0.5];
+        NSLog(@"%@ Simulator: Job step costs 0.5 seconds ", [NSDate date]);
+        
+    }
     
-    
-    
-    /*  When you want to cancel the async block. Just set the returned 'HUIBlockFlag' object's cancel to YES 
-     *  The following code simulates 'cancel the block after 20 seconds'
+    /* 
+     *  If you keep a high frequency of the cancel checking operation. A GOTO label is helpful.
      */
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [NSThread sleepForTimeInterval:20.00];
-        blockFlag.cancel = YES;
-        NSLog(@"BlockFlag is set to cancelled");
-    });
+CancelBlock:
+    NSLog(@"Clean up and return, Block is cancelled");
+    return;
+    
+});
+
+
+
+/*  When you want to cancel the async block. Just set the returned 'HUIBlockFlag' object's cancel to YES 
+ *  The following codes simulate 'cancel the block after 20 seconds'
+ */
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+    [NSThread sleepForTimeInterval:20.00];
+    blockFlag.cancel = YES;
+    NSLog(@"BlockFlag is set to cancelled");
+});
 }
 
 
